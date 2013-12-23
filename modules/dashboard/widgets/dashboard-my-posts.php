@@ -91,7 +91,7 @@ class EF_Dashboard_My_Posts_Widget {
 			$item->date = $comment->comment_date;
 			$item->timestamp = strtotime( $comment->comment_date );
 			$item->human_time = human_time_diff( $item->timestamp );
-			$item->user = get_the_author_meta( 'display_name', $comment->comment_author );
+			$item->user = $comment->comment_author;
 			$item->link = get_edit_post_link( $comment->comment_post_ID ) . '#comment-' . $comment->comment_ID;
 			$item->comment_content = strlen( $comment->comment_content ) < 140 ? $comment->comment_content : substr( $comment->comment_content, 0, 140 ) . '...';
 
@@ -139,9 +139,9 @@ class EF_Dashboard_My_Posts_Widget {
 					<p class="ef-myposts-comment-on">Comment on <a class="ef-myposts-item-name" href="{{{link}}}"><span class="ef-myposts-post-title">{{title}}</span></a></p>
 					<span class="ef-myposts-comment-info">
 						{{#if response_to}}
-							In response to {{response_to}} {{human_time}} ago:</span>
+							In response to {{response_to}}, {{human_time}} ago:</span>
 						{{else}}
-							Posted {{human_time}} ago </span>
+							Posted {{human_time}} ago by {{user}} </span>
 						{{/if}}
 					</span>
 					<p class="ef-myposts-comment">{{comment_content}}</p>

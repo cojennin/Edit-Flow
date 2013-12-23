@@ -99,8 +99,4 @@
 		return new Handlebars.SafeString( status_msg + ' ' + context.human_time + ' ago by ' + context.user );
 	});
 
-	Handlebars.registerHelper('comment_message', function(context, options) {
-
-	});
-
 })(jQuery);
