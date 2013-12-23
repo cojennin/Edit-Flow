@@ -78,7 +78,7 @@
 
 /* Posts I'm Following */
 
-.ef-myposts li {
+/*.ef-myposts li {
 	list-style-type: none;
 	padding-bottom: 5px;
 }
@@ -92,7 +92,77 @@
 	font-style: italic;
 	font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 	font-size: 10px;
+}*/
+
+#ef-myposts .ef-myposts-content-type {
+	margin-top: 20px;
 }
+
+#ef-myposts .ef-myposts-content-type > li {
+	float: left;
+}
+
+#ef-myposts .ef-myposts-content-type > li > a.ef-myposts-button {
+	padding: 10px;
+	border: 1px solid #ddd;
+}
+
+#ef-myposts .ef-myposts-content-type li:first-child a {
+	border-right: 0;
+}
+
+#ef-myposts .ef-myposts-content-type > li > a.active {
+	-moz-box-shadow: 0px 0px 10px #ddd inset;
+	-webkit-box-shadow: 0px 0px 11px #ddd inset;
+	box-shadow: 0px 0px 11px #ddd inset;
+}
+
+#ef-myposts .ef-myposts-content-type > li > .ef-myposts-refresh {
+	padding-left: 10px;
+}
+
+#ef-myposts .ef-myposts-content-items > li > p {
+	margin-bottom: 0px;
+}
+
+#ef-myposts .ef-myposts-content-items .ef-myposts-item-name {
+	font-size: 16px;
+}
+
+#ef-myposts .ef-myposts-content-items .ef-post-status {
+	font-size: 12px;
+}
+
+#ef-myposts .ef-myposts-content-items .ef-status-publish {
+	color: red;
+}
+
+#ef-myposts .ef-myposts-content-items .ef-myposts-item-message {
+	color: #aaa;
+	margin-top: 0;
+}
+
+#ef-myposts .ef-myposts-comment-on {
+	color: #444;
+	font-size: 16px;
+}
+
+#ef-myposts .ef-myposts-comment-on a {
+	color: #0074a2;
+}
+
+#ef-myposts .ef-myposts-comment-on a:hover {
+	color: #2ea2cc
+}
+
+#ef-myposts .ef-myposts-comment-info {
+	color: #aaa;
+}
+
+#ef-myposts .ef-myposts-comment {
+	margin-top: 5px;
+}
+
 
 /** Dashboard Notepad **/
 #dashboard-notepad #dashboard-notepad-submit-buttons {
@@ -107,4 +177,19 @@
 
 #dashboard-notepad .submit #dashboard-notepad-last-updated {
 	float: left;
+}
+
+/** Generic **/
+.cf:before,
+.cf:after {
+    content: " "; 
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    *zoom: 1;
 }

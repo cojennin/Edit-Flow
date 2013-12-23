@@ -1,3 +1,5 @@
 .svn
 edit-flow.php
 wpcom-helper.php
+.DS_STORE
+.gitignore

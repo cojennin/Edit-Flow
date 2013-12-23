@@ -57,6 +57,12 @@ class EF_Dashboard extends EF_Module {
 			$this->widgets->notepad_widget = new EF_Dashboard_Notepad_Widget;
 			$this->widgets->notepad_widget->init();
 		}
+
+		if( 'on' == $this->module->options->my_posts_widget ) {
+			require_once dirname( __FILE__ ) . '/widgets/dashboard-my-posts.php';
+			$this->widgets->my_posts_widget = new EF_Dashboard_My_Posts_Widget;
+			$this->widgets->my_posts_widget->init();
+		}
 		
 		// Add the widgets to the dashboard
 		add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets') );
@@ -126,7 +132,7 @@ class EF_Dashboard extends EF_Module {
 			
 		// Add the MyPosts widget, if enabled
 		if ( $this->module->options->my_posts_widget == 'on' && $this->module_enabled( 'notifications' ) )
-			wp_add_dashboard_widget( 'myposts_widget', __( 'Posts I\'m Following', 'edit-flow' ), array( $this, 'myposts_widget' ) );
+			wp_add_dashboard_widget( 'myposts_widget', __( 'Posts I\'m Following', 'edit-flow' ), array( $this->widgets->my_posts_widget, 'myposts_widget' ) );
 
 	}
 	
@@ -177,36 +183,6 @@ class EF_Dashboard extends EF_Module {
 			</table>
 			<?php if ( isset( $edit_custom_status_url ) ) : ?>
 				<span class="small"><a href="<?php echo esc_url( $edit_custom_status_url ); ?>"><?php _e( 'Edit Custom Statuses', 'edit-flow' ); ?></a></span>
-			<?php endif; ?>
-		</div>
-		<?php
-	}
-	
-	/**
-	 * Creates My Posts widget
-	 * Shows a list of the "posts you're following" sorted by most recent activity.
-	 */ 
-	function myposts_widget() {
-		global $edit_flow;
-
-		$myposts = $edit_flow->notifications->get_user_following_posts();
-		
-		?>
-		<div class="ef-myposts">
-			<?php if( !empty($myposts) ) : ?>
-				
-				<?php foreach( $myposts as $post ) : ?>
-					<?php
-					$url = esc_url(get_edit_post_link( $post->ID ));
-					$title = esc_html($post->post_title);
-					?>
-					<li>
-						<h4><a href="<?php echo $url ?>" title="<?php _e('Edit this post', 'edit-flow') ?>"><?php echo $title; ?></a></h4>
-						<span class="ef-myposts-timestamp"><?php _e('This post was last updated on', 'edit-flow') ?> <?php echo get_the_time('F j, Y \\a\\t g:i a', $post) ?></span>
-					</li>	
-				<?php endforeach; ?>
-			<?php else : ?>
-				<p><?php _e('Sorry! You\'re not subscribed to any posts!', 'edit-flow') ?></p>
 			<?php endif; ?>
 		</div>
 		<?php
