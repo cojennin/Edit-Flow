@@ -6,6 +6,7 @@
 		initialize: function(args) {
 			this.$refreshButton = $('a.ef-myposts-refresh');
 			
+			this.listenTo(this, 'loading', this.contentLoading );
 			this.listenTo(this.collection, 'reset', this.resetRefreshButton);
 			this.listenTo(this.collection, 'reset', this.changeActiveType);
 		},
@@ -25,13 +26,18 @@
 				this.$refreshButton.html('Refresh').removeClass('loading');
 		},
 
+		contentLoading: function() {
+			this.$refreshButton.html( '<span class="spinner" style="display:block;margin-top:-2px">&nbsp;</span>' ).addClass('loading');
+		},
+
 		refreshActiveContentType: function() {
-			this.$refreshButton.html( '<span class="spinner" style="display:block">&nbsp;</span>' ).addClass('loading');
+			this.trigger('loading');
 			this.collection.getItemFollowing(this.collection.options.activeContentType);
 			return false;
 		},
 
 		fetchContentTypeSelected: function(event) {
+			this.trigger('loading');
 			this.collection.options.activeContentType = $(event.target).attr('data-type');
 			this.collection.getItemFollowing(this.collection.options.activeContentType);
 			return false;

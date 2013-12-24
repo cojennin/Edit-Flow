@@ -112,6 +112,10 @@ class EF_Dashboard_My_Posts_Widget {
 				<li><a href="#" class="ef-myposts-refresh">Refresh</a></li>
 			</ul>
 			<ul class="ef-myposts-content-items cf">
+				<?php if( empty( $myposts ) ): ?>
+					<p>Sorry! You're not subscribed to any posts!</p>
+				<?php endif; ?>
+
 				<?php foreach( $myposts as $post ): ?>
 					<li>
 						<p><a class="ef-myposts-item-name" href="<?php echo get_edit_post_link( $post->ID ); ?>"><?php echo $post->post_title; ?></a></p>
@@ -130,6 +134,8 @@ class EF_Dashboard_My_Posts_Widget {
 					<span class="ef-post-status ef-status-{{status}}">{{status_nice}}</span>
 					<p class="ef-myposts-item-message">{{post_message this}}</p>
 				</li>
+			{{else}}
+			<p>Sorry! You're not subscribed to any posts!</p>
 			{{/each}}
 		</script>
 
@@ -146,6 +152,8 @@ class EF_Dashboard_My_Posts_Widget {
 					</span>
 					<p class="ef-myposts-comment">{{comment_content}}</p>
 				</li>
+			{{else}}
+				<p>Sorry! No recent comment activity.</p>
 			{{/each}}
 		</script>
 	<?php
