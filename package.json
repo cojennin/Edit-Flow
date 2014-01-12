@@ -1,0 +1,15 @@
+{
+  "name": "EditFlow",
+  "version": "0.8.0",
+  "description": "Redefining your editorial workflow.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Automattic/Edit-Flow"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.6.2",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-watch": "~0.5.1"
+  }
+}
