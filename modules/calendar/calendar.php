@@ -65,7 +65,7 @@ class EF_Calendar extends EF_Module {
 			'settings_help_sidebar' => __( '<p><strong>For more information:</strong></p><p><a href="http://editflow.org/features/calendar/">Calendar Documentation</a></p><p><a href="http://wordpress.org/tags/edit-flow?forum_id=10">Edit Flow Forum</a></p><p><a href="https://github.com/danielbachhuber/Edit-Flow">Edit Flow on Github</a></p>', 'edit-flow' ),
 		);
 		$this->module = EditFlow()->register_module( 'calendar', $args );		
-		
+		$this->register_module_page( $args['slug'], 'index.php', $args['slug'] );
 	}
 	
 	/**
@@ -189,6 +189,9 @@ class EF_Calendar extends EF_Module {
 	 * @uses wp_enqueue_script()
 	 */
 	function enqueue_admin_scripts() {
+
+		if( !$this->is_module_page() )
+			return;
 
 		$this->enqueue_datepicker_resources();
 		

@@ -54,7 +54,7 @@ class EF_Notifications extends EF_Module {
 			'settings_help_sidebar' => __( '<p><strong>For more information:</strong></p><p><a href="http://editflow.org/features/notifications/">Notifications Documentation</a></p><p><a href="http://wordpress.org/tags/edit-flow?forum_id=10">Edit Flow Forum</a></p><p><a href="https://github.com/danielbachhuber/Edit-Flow">Edit Flow on Github</a></p>', 'edit-flow' ),
 		);
 		$this->module = EditFlow()->register_module( 'notifications', $args );
-		
+		$this->register_module_page( $args['slug'], array( 'post.php', 'page.php', 'post-new.php', 'page-new.php' ) );
 	}
 	
 	/**
@@ -188,7 +188,7 @@ class EF_Notifications extends EF_Module {
 	 */
 	function enqueue_admin_scripts() {
 		
-		if ( $this->is_whitelisted_functional_view() ) {
+		if ( $this->is_module_page() ) {
 			wp_enqueue_script( 'jquery-listfilterizer' );
 			wp_enqueue_script( 'jquery-quicksearch' );
 			wp_enqueue_script( 'edit-flow-notifications-js', $this->module_url . 'lib/notifications.js', array( 'jquery', 'jquery-listfilterizer', 'jquery-quicksearch' ), EDIT_FLOW_VERSION, true );

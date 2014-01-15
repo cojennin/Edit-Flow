@@ -50,6 +50,7 @@ class EF_Story_Budget extends EF_Module {
 			'autoload' => false,
 		);
 		$this->module = EditFlow()->register_module( 'story_budget', $args );
+		$this->register_module_page( $args['slug'], 'index.php', $args['slug'] );
 	
 	}
 	
@@ -143,8 +144,8 @@ class EF_Story_Budget extends EF_Module {
 	 */
 	function enqueue_admin_scripts() {
 		global $current_screen;
-		
-		if ( $current_screen->id != self::screen_id )
+
+		if( !$this->is_module_page() )
 			return;
 		
 		$num_columns = $this->get_num_columns();

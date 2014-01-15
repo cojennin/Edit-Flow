@@ -43,6 +43,7 @@ class EF_Dashboard extends EF_Module {
 			'configure_link_text' => __( 'Widget Options', 'edit-flow' ),		
 		);
 		$this->module = EditFlow()->register_module( 'dashboard', $args );
+		$this->register_module_page( $args['slug'], 'index.php' );
 	}
 	
 	/**
@@ -63,6 +64,7 @@ class EF_Dashboard extends EF_Module {
 		
 		// Register our settings
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'add_dashboard_styles' ) );
 	}
 
 	/**
@@ -104,6 +106,13 @@ class EF_Dashboard extends EF_Module {
 		}
 		
 	}
+
+	function add_dashboard_styles() {
+		if( !$this->is_module_page() )
+			return;
+
+		wp_enqueue_style( 'edit-flow-dashboard-css', $this->module_url . 'lib/dashboard.css', false, EDIT_FLOW_VERSION, 'all' );
+	}
 	
 	/**
 	 * Add Edit Flow dashboard widgets to the WordPress admin dashboard
@@ -113,8 +122,6 @@ class EF_Dashboard extends EF_Module {
 		// Only show dashboard widgets for Contributor or higher
 		if ( !current_user_can('edit_posts') ) 
 			return;
-		
-		wp_enqueue_style( 'edit-flow-dashboard-css', $this->module_url . 'lib/dashboard.css', false, EDIT_FLOW_VERSION, 'all' );			
 			
 		// Set up Post Status widget but, first, check to see if it's enabled
 		if ( $this->module->options->post_status_widget == 'on')

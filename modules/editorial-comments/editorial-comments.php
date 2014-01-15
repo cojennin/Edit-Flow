@@ -43,6 +43,7 @@ class EF_Editorial_Comments extends EF_Module
 			'settings_help_sidebar' => __( '<p><strong>For more information:</strong></p><p><a href="http://editflow.org/features/editorial-comments/">Editorial Comments Documentation</a></p><p><a href="http://wordpress.org/tags/edit-flow?forum_id=10">Edit Flow Forum</a></p><p><a href="https://github.com/danielbachhuber/Edit-Flow">Edit Flow on Github</a></p>', 'edit-flow' ),
 		);
 		$this->module = EditFlow()->register_module( 'editorial_comments', $args );
+		$this->register_module_page( $args['slug'], array( 'post.php', 'page.php', 'post-new.php', 'page-new.php' ) );
 	}
 
 	/**
@@ -83,15 +84,15 @@ class EF_Editorial_Comments extends EF_Module
 	 */
 	function add_admin_scripts( ) {
 		global $pagenow;
+
+		if( !$this->is_module_page() )
+			return;
 		
 		$post_type = $this->get_current_post_type();
 		$supported_post_types = $this->get_post_types_for_module( $this->module );
 		if ( !in_array( $post_type, $supported_post_types ) )
 			return;
 			
-		if ( !in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'page-new.php' ) ) )
-			return;
-		
 		wp_enqueue_script( 'edit_flow-post_comment', $this->module_url . 'lib/editorial-comments.js', array( 'jquery','post' ), EDIT_FLOW_VERSION, true );
 		wp_enqueue_style( 'edit-flow-editorial-comments-css', $this->module_url . 'lib/editorial-comments.css', false, EDIT_FLOW_VERSION, 'all' );
 				

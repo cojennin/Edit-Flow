@@ -29,6 +29,7 @@ class EF_Settings extends EF_Module {
 			'autoload' => true,
 		);
 		$this->module = EditFlow()->register_module( 'settings', $args );
+		$this->register_module_page( $args['slug'], 'admin.php', $args['settings_slug'] );
 	}
 	
 	/**
@@ -70,6 +71,8 @@ class EF_Settings extends EF_Module {
 	}
 	
 	function action_admin_enqueue_scripts() {
+		if( !$this->is_module_page() )
+			return;
 		
 		if ( $this->is_whitelisted_settings_view() )
 			wp_enqueue_script( 'edit-flow-settings-js', $this->module_url . 'lib/settings.js', array( 'jquery' ), EDIT_FLOW_VERSION, true );

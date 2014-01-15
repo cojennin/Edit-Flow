@@ -62,7 +62,8 @@ class EF_Custom_Status extends EF_Module {
 				),
 			'settings_help_sidebar' => __( '<p><strong>For more information:</strong></p><p><a href="http://editflow.org/features/custom-statuses/">Custom Status Documentation</a></p><p><a href="http://wordpress.org/tags/edit-flow?forum_id=10">Edit Flow Forum</a></p><p><a href="https://github.com/danielbachhuber/Edit-Flow">Edit Flow on Github</a></p>', 'edit-flow' ),
 		);
-		$this->module = EditFlow()->register_module( 'custom_status', $args );		
+		$this->module = EditFlow()->register_module( 'custom_status', $args );	
+		$this->register_module_page( $args['slug'], array( 'post.php', 'page.php', 'post-new.php', 'page-new.php' ) );	
 		
 	}
 		
@@ -293,6 +294,9 @@ class EF_Custom_Status extends EF_Module {
 			wp_enqueue_script( 'jquery-ui-sortable' );			
 			wp_enqueue_script( 'edit-flow-custom-status-configure', $this->module_url . 'lib/custom-status-configure.js', array( 'jquery', 'jquery-ui-sortable', 'edit-flow-settings-js' ), EDIT_FLOW_VERSION, true );
 		}
+
+		if( !$this->is_module_page() )
+			return;
 		
 		// Custom javascript to modify the post status dropdown where it shows up
 		if ( $this->is_whitelisted_page() ) {

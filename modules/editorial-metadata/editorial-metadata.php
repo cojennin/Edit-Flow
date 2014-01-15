@@ -71,6 +71,7 @@ class EF_Editorial_Metadata extends EF_Module {
 			'settings_help_sidebar' => __( '<p><strong>For more information:</strong></p><p><a href="http://editflow.org/features/editorial-metadata/">Editorial Metadata Documentation</a></p><p><a href="http://wordpress.org/tags/edit-flow?forum_id=10">Edit Flow Forum</a></p><p><a href="https://github.com/danielbachhuber/Edit-Flow">Edit Flow on Github</a></p>', 'edit-flow' ),
 		);
 		EditFlow()->register_module( $this->module_name, $args );
+		$this->register_module_page( $args['slug'], array( 'post.php', 'page.php', 'post-new.php', 'page-new.php' ) );
 	}
 	
 	/**
@@ -232,6 +233,15 @@ class EF_Editorial_Metadata extends EF_Module {
 	 */ 
 	function add_admin_scripts() {
 		global $current_screen, $pagenow;
+
+		// Load Javascript specific to the editorial metadata configuration view
+		if ( $this->is_whitelisted_settings_view( $this->module->name ) ) {
+			wp_enqueue_script( 'jquery-ui-sortable' );			
+			wp_enqueue_script( 'edit-flow-editorial-metadata-configure', EDIT_FLOW_URL . 'modules/editorial-metadata/lib/editorial-metadata-configure.js', array( 'jquery', 'jquery-ui-sortable', 'edit-flow-settings-js' ), EDIT_FLOW_VERSION, true );
+		}
+
+		if( !$this->is_module_page() )
+			return;
 		
 		// Add the metabox date picker JS and CSS
 		$current_post_type = $this->get_current_post_type();
@@ -297,12 +307,6 @@ class EF_Editorial_Metadata extends EF_Module {
 				echo '</style>';
 			}
 			
-		}
-		
-		// Load Javascript specific to the editorial metadata configuration view
-		if ( $this->is_whitelisted_settings_view( $this->module->name ) ) {
-			wp_enqueue_script( 'jquery-ui-sortable' );			
-			wp_enqueue_script( 'edit-flow-editorial-metadata-configure', EDIT_FLOW_URL . 'modules/editorial-metadata/lib/editorial-metadata-configure.js', array( 'jquery', 'jquery-ui-sortable', 'edit-flow-settings-js' ), EDIT_FLOW_VERSION, true );
 		}
 	}
 	
