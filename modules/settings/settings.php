@@ -25,11 +25,14 @@ class EF_Settings extends EF_Module {
 			'default_options' => array(
 				'enabled' => 'on',
 			),
+			'view' => array(
+				'files' => array( 'admin.php' ),
+				'page' => array( 'settings' )
+			),
 			'configure_page_cb' => 'print_default_settings',
 			'autoload' => true,
 		);
 		$this->module = EditFlow()->register_module( 'settings', $args );
-		$this->register_module_page( $args['slug'], 'admin.php', $args['settings_slug'] );
 	}
 	
 	/**

@@ -49,6 +49,10 @@ class EF_Calendar extends EF_Module {
 				'ics_subscription' => 'off',
 				'ics_secret_key' => '',
 			),
+			'view' => array(
+				'files' => array( 'index.php' ),
+				'pages' => array( 'calendar' )
+			),
 			'messages' => array(
 				'post-date-updated' => __( "Post date updated.", 'edit-flow' ),
 				'update-error' => __( 'There was an error updating the post. Please try again.', 'edit-flow' ),
@@ -65,7 +69,6 @@ class EF_Calendar extends EF_Module {
 			'settings_help_sidebar' => __( '<p><strong>For more information:</strong></p><p><a href="http://editflow.org/features/calendar/">Calendar Documentation</a></p><p><a href="http://wordpress.org/tags/edit-flow?forum_id=10">Edit Flow Forum</a></p><p><a href="https://github.com/danielbachhuber/Edit-Flow">Edit Flow on Github</a></p>', 'edit-flow' ),
 		);
 		$this->module = EditFlow()->register_module( 'calendar', $args );		
-		$this->register_module_page( $args['slug'], 'index.php', $args['slug'] );
 	}
 	
 	/**

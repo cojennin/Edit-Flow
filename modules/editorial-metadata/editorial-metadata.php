@@ -54,6 +54,9 @@ class EF_Editorial_Metadata extends EF_Module {
 					'page' => 'off',
 				),
 			),
+			'view' => array(
+				'files' => array( 'post.php', 'page.php', 'post-new.php', 'page-new.php' )
+			),
 			'messages' => array(
 				'term-added' => __( "Metadata term added.", 'edit-flow' ),
 				'term-updated' => __( "Metadata term updated.", 'edit-flow' ),
@@ -71,7 +74,6 @@ class EF_Editorial_Metadata extends EF_Module {
 			'settings_help_sidebar' => __( '<p><strong>For more information:</strong></p><p><a href="http://editflow.org/features/editorial-metadata/">Editorial Metadata Documentation</a></p><p><a href="http://wordpress.org/tags/edit-flow?forum_id=10">Edit Flow Forum</a></p><p><a href="https://github.com/danielbachhuber/Edit-Flow">Edit Flow on Github</a></p>', 'edit-flow' ),
 		);
 		EditFlow()->register_module( $this->module_name, $args );
-		$this->register_module_page( $args['slug'], array( 'post.php', 'page.php', 'post-new.php', 'page-new.php' ) );
 	}
 	
 	/**

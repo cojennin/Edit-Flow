@@ -14,7 +14,6 @@ class EF_Module {
 								'future',
 								'private',
 							);
-	private static $module_pages;
 	
 	function __construct() {}
 
@@ -644,39 +643,19 @@ class EF_Module {
 		}
 	}
 
-	public function register_module_page( $module_name, $module_file, $module_page = null ) {
-		if( !is_array( $module_file ) ) {
-			$module_file = array( $module_file );
-		}
-
-		if( !is_array( $module_page ) && !empty( $module_page ) ) {
-			$module_page = array( $module_page );
-		}
-
-		self::$module_pages[$module_name] = array( 'file' => $module_file, 'page' => $module_page ) ;
-	}
-
-	//
-	public function is_module_page( $module_name = null ) {
+	public function is_module_page() {
 		global $pagenow;
 
 		if( !is_admin() )
 			return;
 
-		if( is_null( $module_name ) ) {
-			$module_name = $this->module->slug;
-		}
-
-		if( isset( self::$module_pages[$module_name] ) ) {
-			$module_page_info = self::$module_pages[$module_name];
-			if( in_array( $pagenow, $module_page_info['file'] ) ) {
-				if( empty( $module_page_info['page'] ) ) {
-					return true;
-				} else if( !empty( $module_page_info['page'] ) && !empty( $_GET['page'] ) && in_array( $_GET['page'], $module_page_info['page'] ) ) {
-					return true;
-				} else {
-					return false;
-				}
+		if( isset( $this->module->view ) && in_array( $pagenow, $this->module->view['files'] ) ) {
+			if( empty( $this->module->view['pages'] ) ) {
+				return true;
+			} else if( !empty( $this->module->view['pages'] ) && !empty( $_GET['page'] ) && in_array( $_GET['page'], $this->module->view['pages'] ) ) {
+				return true;
+			} else {
+				return false;
 			}
 		}
 

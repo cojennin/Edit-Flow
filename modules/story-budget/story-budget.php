@@ -46,12 +46,15 @@ class EF_Story_Budget extends EF_Module {
 			'default_options' => array(
 				'enabled' => 'on',
 			),
+			'view' => array(
+				'files' => array( 'index.php' ),
+				'pages' => array( 'story-budget' )
+			),
 			'configure_page_cb' => false,
 			'autoload' => false,
 		);
-		$this->module = EditFlow()->register_module( 'story_budget', $args );
-		$this->register_module_page( $args['slug'], 'index.php', $args['slug'] );
-	
+		$this->module = EditFlow()->register_module( 'story_budget', $args );	
+		
 	}
 	
 	/**

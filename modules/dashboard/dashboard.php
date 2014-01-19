@@ -39,11 +39,13 @@ class EF_Dashboard extends EF_Module {
 				'my_posts_widget' => 'on',
 				'notepad_widget' => 'on',
 			),
+			'view' => array(
+				'files' => array( 'index.php' )
+			),
 			'configure_page_cb' => 'print_configure_view',
 			'configure_link_text' => __( 'Widget Options', 'edit-flow' ),		
 		);
 		$this->module = EditFlow()->register_module( 'dashboard', $args );
-		$this->register_module_page( $args['slug'], 'index.php' );
 	}
 	
 	/**
