@@ -21,7 +21,7 @@ matrix:
 
 before_script:
     - export PLUGIN_SLUG=$(basename $(pwd))
-    #- git clone --depth=1 --branch $WP_VERSION git://develop.git.wordpress.org/ /tmp/wordpress
+    - git clone --depth=1 --branch $WP_VERSION git://develop.git.wordpress.org/ /tmp/wordpress
     #- cd ..
     #- mv $PLUGIN_SLUG "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
     #- cd /tmp/wordpress
