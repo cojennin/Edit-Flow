@@ -15,7 +15,7 @@ matrix:
   includes:
     - php: "5.6"
       env: WP_VERSION=master WP_MULTISITE=1
-   allow_failures:
+  allow_failures:
     - php: "hhvm"
     - php: "nightly"
 
